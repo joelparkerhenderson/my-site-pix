@@ -1,0 +1,13 @@
+#!/bin/sh
+
+file="$1"
+
+# sixarm-unix-shell-functions yark
+touch_format() {
+        printf %s\\n "$*" | sed 's/[^[:digit:]]//g; s/^\([[:digit:]]\{12\}\)\([[:digit:]]\{2\}\)/\1.\2/;'
+}
+
+# gm convert "$file" -define jpeg:preserve-settings -resize '2400x2400>' "$file"
+chmod 644 "$file"
+xattr -c "$file"
+touch -t $(touch_format $(basename "$file")) "$file"
