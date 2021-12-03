@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function page_start(){
+    echo '<!DOCTYPE html>'
+    echo '<html lang="en">'
+    echo '<head>'
+    echo '<meta charset="utf-8" />'
+    echo '<title>Photos - Joel Parker Henderson</title>'
+    echo '<style>'
+    echo 'body { text-align: center; }'
+    echo 'img { width:540px; height:540px; margin: 10px; }'
+    echo '</style>'
+    echo '</head>'
+    echo '<body>'
+}
+
+function page_finish(){
+    echo '</body>'
+    echo '</html>'
+}
+
+function page_images(){
+    find . -type f -name "*.jpg" | sort -r | while read x; do
+        echo "<a href=\"$x\"><img src=\"$x\" loading=\"lazy\" /></a>"
+    done
+}
+
+page_start > index.html
+page_images >> index.html
+page_finish >> index.html
