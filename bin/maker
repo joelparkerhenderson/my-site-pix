@@ -8,7 +8,7 @@ function page_start(){
     echo '<title>Photos - Joel Parker Henderson</title>'
     echo '<style>'
     echo 'body { text-align: center; }'
-    echo 'img { width:540px; height:540px; margin: 10px; }'
+    echo 'img { width:480px; height:480px; margin: 10px; }'
     echo '</style>'
     echo '</head>'
     echo '<body>'
@@ -19,12 +19,14 @@ function page_finish(){
     echo '</html>'
 }
 
-function page_images(){
+function create_index(){
+    base_url=${1:-}
+    page_start
     find . -type f -name "*.jpg" | sort -r | while read x; do
-        echo "<a href=\"$x\"><img src=\"$x\" loading=\"lazy\" /></a>"
+        echo "<a href=\"${base_url}${x}\"><img src=\"${base_url}${x}\" loading=\"lazy\" /></a>"
     done
+    page_finish
 }
 
-page_start > index.html
-page_images >> index.html
-page_finish >> index.html
+create_index > index.html
+create_index "https://raw.githubusercontent.com/joelparkerhenderson/my-site-pix/main/" > index-via-github.html
