@@ -1,2 +1,0 @@
-git s | grep '^[[:space:]]\+[^ ]\+$' | while read x; do git a "$x"; git cm "Add $x"; done
-
